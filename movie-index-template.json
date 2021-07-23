@@ -1,0 +1,29 @@
+{
+  "index_patterns": ["movie-*"],
+  "mappings": {
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "watched_at": {
+        "type": "date"
+      },
+      "movie_name": {
+        "type": "keyword"
+      },
+      "release_year": {
+        "type": "integer"
+      },
+      "app_name": {
+        "type": "keyword"
+      }
+    }
+  },
+  "settings": {
+    "index": {
+      "number_of_replicas": "2",
+      "number_of_shards": "3",
+      "mapping.ignore_malformed": true
+    }
+  }
+}

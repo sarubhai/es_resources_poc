@@ -1,0 +1,69 @@
+{
+  "description": "Daily Indices",
+  "processors": [
+    {
+      "date_index_name": {
+        "field": "watched_at",
+        "index_name_prefix": "movie-",
+        "date_rounding": "d",
+        "timezone": "UTC",
+        "date_formats": [
+          "uuuu-MM-dd'T'HH:mm:ssX",
+          "uuuu-MM-dd'T'HH:mm:ss.SSSX",
+          "yyyy-MM-dd'T'HH:mm:ssZ",
+          "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        ]
+      }
+    },
+    {
+      "date": {
+        "field": "watched_at",
+        "timezone": "UTC",
+        "formats": [
+          "uuuu-MM-dd'T'HH:mm:ssX",
+          "uuuu-MM-dd'T'HH:mm:ss.SSSX",
+          "yyyy-MM-dd'T'HH:mm:ssZ",
+          "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        ],
+        "target_field": "@timestamp"
+      }
+    },
+    {
+      "date": {
+        "field": "watched_at",
+        "timezone": "UTC",
+        "formats": [
+          "uuuu-MM-dd'T'HH:mm:ssX",
+          "uuuu-MM-dd'T'HH:mm:ss.SSSX",
+          "yyyy-MM-dd'T'HH:mm:ssZ",
+          "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        ],
+        "target_field": "watched_at"
+      }
+    },
+    {
+      "uppercase": {
+        "field": "movie_name"
+      }
+    },
+    {
+      "rename": {
+        "field": "year",
+        "target_field": "release_year",
+        "ignore_missing": true
+      }
+    },
+    {
+      "set": {
+        "field": "app_name",
+        "value": "Netflix"
+      }
+    },
+    {
+      "remove": {
+        "field": "liked",
+        "ignore_missing": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "policy": {
+    "policy_id": "manage-movie-indices",
+    "description": "snapshot to external S3 repository & delete movie indices after 1 day",
+    "default_state": "hot",
+    "schema_version": 1,
+    "states": [
+      {
+        "name": "hot",
+        "actions": [],
+        "transitions": [
+          {
+            "state_name": "snapshot",
+            "conditions": {
+              "min_index_age": "1d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "snapshot",
+        "actions": [
+          {
+            "snapshot": {
+              "repository": "bkp-repo",
+              "snapshot": "snapshot-movie"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "delete"
+          }
+        ]
+      },
+      {
+        "name": "delete",
+        "actions": [
+          {
+            "delete": {}
+          }
+        ],
+        "transitions": []
+      }
+    ],
+    "ism_template": {
+      "index_patterns": ["movie-*"],
+      "priority": 100
+    }
+  }
+}
